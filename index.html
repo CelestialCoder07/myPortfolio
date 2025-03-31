@@ -176,13 +176,19 @@
         .about-img {
             flex: 1;
             position: relative;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .about-img img {
             width: 100%;
             max-width: 400px;
+            height: auto;
             border-radius: 20px;
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            object-fit: cover;
         }
 
         .about-content {
@@ -374,6 +380,11 @@
                 flex-direction: column;
             }
 
+            .about-img {
+                min-height: 300px;
+                margin-bottom: 30px;
+            }
+
             .skills-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -428,6 +439,22 @@
             opacity: 0.1;
             animation: float 15s infinite linear;
         }
+
+        /* Fallback image styling */
+        .img-fallback {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+        }
     </style>
 </head>
 <body>
@@ -460,7 +487,13 @@
     <section id="about">
         <div class="about-container">
             <div class="about-img">
-                <img src="./images/codingi.jpg" alt="Developer Illustration" class="floating">
+                <!-- Updated image path and added fallback content -->
+                <img src="images/coding1.jpg" alt="Developer Illustration" class="floating" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'; this.alt='Developer illustration fallback image';">
+                <noscript>
+                    <div class="img-fallback">
+                        <p>Developer illustration</p>
+                    </div>
+                </noscript>
             </div>
             <div class="about-content">
                 <h2 class="section-title">About Me</h2>
@@ -649,6 +682,15 @@
 
         // Start typing effect
         setTimeout(type, 1000);
+
+        // Check if image loaded successfully
+        document.addEventListener('DOMContentLoaded', function() {
+            const devImage = document.querySelector('.about-img img');
+            devImage.addEventListener('error', function() {
+                this.src = 'https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80';
+                this.alt = 'Developer illustration fallback image';
+            });
+        });
     </script>
 </body>
 </html>
